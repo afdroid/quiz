@@ -1,0 +1,21 @@
+<div class="container">
+
+<h1>Quiz Results</h1>
+<p id="question">You answered correctly <%= @correct %> out of <%= @total %> questions. </p>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="<%= @score %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @score %>%">
+  </div>
+</div>
+<div class="alert alert-info" role="alert"><p id="score"><%= @score %>%</p></div>
+
+
+
+<%= form_tag({:controller => 'quiz', :action => 'index'}, :method => 'get') do %>
+<div class="center">
+  <%= submit_tag('Take another quiz', :class => 'submit btn btn-primary') %>
+</div>
+<% end %>
+<% content_for(:title) do %>
+Quiz Results
+<% end %>
+</div>

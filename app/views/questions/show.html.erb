@@ -1,0 +1,45 @@
+<div class="container">
+<p id="notice"><%= notice %></p>
+<h3><strong>Text:</strong>
+  <%= @question.text %></h3>
+  <hr>
+  
+<h4>Choices</h4>
+<table border="1" class="table table-bored table-hover">
+  <tr>
+    <th>Choice</th>
+    <th>Opciones</th>
+  </tr>
+
+  <% @question.choices.find_each do |choice| %>
+  
+  <tr>
+    <td><%= choice.text %><% if choice.correct %>(Correct)<% end %></td>
+    <%= form_tag({:controller => 'choices', :action => 'destroy'}) do %>
+    <%= hidden_field_tag :question, @question.id %>
+    <%= hidden_field_tag :choice, choice.id %>
+    <td><%= submit_tag 'Delete', :class => "btn btn-danger"%></td>
+  </tr>
+<% end %>
+<% end %>
+
+</table>
+<hr>
+<h5><strong>New choice</strong></h5>
+<%= form_tag({:controller => 'choices', :action => 'create'}) do %>
+<%= hidden_field_tag :question, @question.id %>
+  <div class="input-group">
+  <%= label_tag 'Text' %><br />
+  <%= text_field_tag :text, "",:class => "form-control"%>
+  </div>
+  <%= check_box_tag :correct %><br />
+  
+  <%= submit_tag 'Create', :class => "btn btn-primary" %>
+<% end %>
+<br/>
+<%= link_to 'Edit', edit_question_path(@question), :class => "btn btn-default" %>
+<%= link_to 'Back', questions_path, :class => "btn btn-default"  %>
+<% content_for(:title) do %>
+  Question Details
+<% end %>
+</div>
